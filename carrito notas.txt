@@ -1,0 +1,23 @@
+	
+CREATE USER 'alex'@'localhost' IDENTIFIED BY 'sponja1234';
+GRANT ALL PRIVILEGES ON *.* TO 'alex'@'localhost' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+
+CREATE TABLE ORDENES (
+  id INT PRIMARY KEY AUTO_INCREMENT,   
+  usuario VARCHAR(50) NOT NULL,   
+  mesa INT NOT NULL,    
+  items JSON NOT NULL,   
+  total FLOAT(10,2) NOT NULL,
+  estado VARCHAR(20) NOT NULL DEFAULT 'pendiente'
+);
+
+
+
+INSERT INTO ORDENES (usuario, mesa, items, total) 
+VALUES (
+  'alex',
+  2,  
+  '{"items":[{"titulo":"HUMITAS","cantidad":"2","precio":"2,00","subtotal":"4.00"},{"titulo":"ENCEBOLLADO","cantidad":"2","precio":"2,00","subtotal":"4.00"}]}',
+  8.00
+);

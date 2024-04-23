@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Productos desde Excel</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+</head>
+<body>
+<div id="productos-container"></div>
+
+<script>
+// Leer el archivo Excel
+var url = 'productos.xlsx';
+var oReq = new XMLHttpRequest();
+oReq.open("GET", url, true);
+oReq.responseType = "arraybuffer";
+
+oReq.onload = function(e) {
+    var arraybuffer = oReq.response;
+
+    /* convert data to binary string */
+    var data = new Uint8Array(arraybuffer);
+    var arr = new Array();
+    for(var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
+    var bstr = arr.join("");
+
+    // Utilizar la biblioteca SheetJS para procesar el archivo Excel
+    var workbook = XLSX.read(bstr, {type:"binary"});
+    var first_sheet_name = workbook.SheetNames[0];
+    var worksheet = workbook.Sheets[first_sheet_name];
+
+    // Convertir los datos a JSON
+    var dataJSON = XLSX.utils.sheet_to_json(worksheet, {raw: true});
+
+    // Generar elementos HTML para cada producto
+    var productosContainer = document.getElementById("productos-container");
+    dataJSON.forEach(function(producto) {
+        var productoHTML = `
+            <div class="item">
+                <span class="titulo-item">${producto['Título']}</span>
+                <img src="${producto['Imagen']}" alt="" class="img-item">
+                <p>${producto['Descripción']}</p>
+                <span class="precio-item">${producto['Precio']}</span>
+                <button class="boton-item">Agregar al Carrito</button>
+            </div>
+        `;
+        productosContainer.innerHTML += productoHTML;
+    });
+};
+
+oReq.send();
+</script>
+</body>
+</html>

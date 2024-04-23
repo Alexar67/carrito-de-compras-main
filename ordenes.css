@@ -1,0 +1,52 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+}
+
+/* Estilos para las órdenes */
+.orden {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.orden p {
+    margin: 5px 0;
+}
+
+.items-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.item {
+    border: 1px solid #eee;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+/* Estilos para los colores de los estados */
+.estado-pendiente {
+    color: orange;
+}
+
+.estado-recibida {
+    color: green;
+}
+
+.estado-cancelada {
+    color: red;
+}
